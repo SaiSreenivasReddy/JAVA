@@ -4,7 +4,7 @@ import fr.epita.bank.datamodel.*;
 
 import java.util.Scanner;
 
-public class main {
+public class Main {
     public static final double COMMISSION_RATE = 0.01;
     public static double test;
 
