@@ -7,10 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.OptionalDouble;
-import java.util.Scanner;
+import java.util.*;
 
 public class TestFileInput {
 
@@ -57,6 +54,53 @@ public class TestFileInput {
             System.out.println(average.getAsDouble());
         }
 
+Map<String,Integer> countByGender= new LinkedHashMap<>();
+for  (BioStatEntry entry: entries){
+    Integer currentCount = countByGender.get(entry.getSex());
+    if(currentCount==null){
+        currentCount=0;
+    }
+    currentCount++;
+    countByGender.put(entry.getSex(),currentCount);
+}
+System.out.println(countByGender);
+
+        Map<Integer,Integer> countByAge= new LinkedHashMap<>();
+        entries .sort(Comparator.comparing(BioStatEntry::getAge));{
+            for (BioStatEntry entry: entries) {
+                Integer currentCount = countByAge.get(entry.getAge());
+                if(currentCount==null){
+                    currentCount=0;
+                }
+                currentCount++;
+                countByAge.put(entry.getAge(),currentCount);
+            }
+            System.out.println(countByAge);
+        }
+        Map<String,Integer> countByAgeClasses = new LinkedHashMap<>();
+        entries.sort(Comparator.comparing(BioStatEntry::getAge));
+        String oldCategory = "40->";
+        String between30_40 = "30->40";
+        String before30 = "->30";
+        for (BioStatEntry entry: entries){
+            String category = "";
+            if (entry.getAge() > 40){
+                category = oldCategory;
+            }else if (entry.getAge() > 30){
+                category = between30_40;
+            }else {
+                category = before30;
+            }
+
+            Integer currentCount = countByAgeClasses.get(category);
+            if (currentCount == null){
+                currentCount = 0;
+            }
+            currentCount++;
+            countByAgeClasses.put(category, currentCount);
+        }
+
+        System.out.println(countByAgeClasses);
 
     }
 }
